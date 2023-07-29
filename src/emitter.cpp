@@ -210,11 +210,11 @@ void Emitter::EmitEndSeq() {
   if (m_pState->CurGroupChildCount() == 0)
     m_pState->ForceFlow();
 
-  if (m_pState->CurGroupFlowType() == FlowType::Flow) {
+  if (m_pState->CurGroupFlowType() == FlowType::StandardFlow) {
     if (m_stream.comment())
       m_stream << "\n";
     m_stream << IndentTo(m_pState->CurIndent());
-    if (originalType == FlowType::Block) {
+    if (originalType == FlowType::BlockFlow) {
       m_stream << "[";
     } else {
       if (m_pState->CurGroupChildCount() == 0 && !m_pState->HasBegunNode())
@@ -245,11 +245,11 @@ void Emitter::EmitEndMap() {
   if (m_pState->CurGroupChildCount() == 0)
     m_pState->ForceFlow();
 
-  if (m_pState->CurGroupFlowType() == FlowType::Flow) {
+  if (m_pState->CurGroupFlowType() == FlowType::StandardFlow) {
     if (m_stream.comment())
       m_stream << "\n";
     m_stream << IndentTo(m_pState->CurIndent());
-    if (originalType == FlowType::Block) {
+    if (originalType == FlowType::BlockFlow) {
       m_stream << "{";
     } else {
       if (m_pState->CurGroupChildCount() == 0 && !m_pState->HasBegunNode())
@@ -724,22 +724,22 @@ Emitter& Emitter::Write(const std::string& str) {
       Utils::ComputeStringFormat(str, m_pState->GetStringFormat(),
                                  m_pState->CurGroupFlowType(), stringEscaping == StringEscaping::NonAscii);
 
-  if (strFormat == StringFormat::Literal || str.size() > 1024)
+  if (strFormat == StringFormat::LiteralFormat || str.size() > 1024)
     m_pState->SetMapKeyFormat(YAML::LongKey, FmtScope::Local);
 
   PrepareNode(EmitterNodeType::Scalar);
 
   switch (strFormat) {
-    case StringFormat::Plain:
+    case StringFormat::PlainFormat:
       m_stream << str;
       break;
-    case StringFormat::SingleQuoted:
+    case StringFormat::SingleQuotedFormat:
       Utils::WriteSingleQuotedString(m_stream, str);
       break;
-    case StringFormat::DoubleQuoted:
+    case StringFormat::DoubleQuotedFormat:
       Utils::WriteDoubleQuotedString(m_stream, str, stringEscaping);
       break;
-    case StringFormat::Literal:
+    case StringFormat::LiteralFormat:
       Utils::WriteLiteralString(m_stream, str,
                                 m_pState->CurIndent() + m_pState->GetIndent());
       break;
