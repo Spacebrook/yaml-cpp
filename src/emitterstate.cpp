@@ -76,7 +76,7 @@ void EmitterState::ForceFlow() {
     return;
   }
 
-  m_groups.back()->flowType = FlowType::Flow;
+  m_groups.back()->flowType = FlowType::StandardFlow;
 }
 
 void EmitterState::StartedNode() {
@@ -147,9 +147,9 @@ void EmitterState::StartedGroup(GroupType::value type) {
 
   // set up group
   if (GetFlowType(type) == Block) {
-    pGroup->flowType = FlowType::Block;
+    pGroup->flowType = FlowType::BlockFlow;
   } else {
-    pGroup->flowType = FlowType::Flow;
+    pGroup->flowType = FlowType::StandardFlow;
   }
   pGroup->indent = GetIndent();
 
@@ -365,7 +365,7 @@ bool EmitterState::SetFlowType(GroupType::value groupType, EMITTER_MANIP value,
 
 EMITTER_MANIP EmitterState::GetFlowType(GroupType::value groupType) const {
   // force flow style if we're currently in a flow
-  if (CurGroupFlowType() == FlowType::Flow)
+  if (CurGroupFlowType() == FlowType::StandardFlow)
     return Flow;
 
   // otherwise, go with what's asked of us

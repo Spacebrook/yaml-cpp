@@ -86,7 +86,7 @@ To deviate from standard formatting, you can use manipulators to modify the outp
 
 ```cpp
 YAML::Emitter out;
-out << YAML::Literal << "A\n B\n  C";
+out << YAML::LiteralFormat << "A\n B\n  C";
 ```
 
 produces
@@ -101,7 +101,7 @@ and
 
 ```cpp
 YAML::Emitter out;
-out << YAML::Flow;
+out << YAML::StandardFlow;
 out << YAML::BeginSeq << 2 << 3 << 5 << 7 << 11 << YAML::EndSeq;
 ```
 
@@ -167,7 +167,7 @@ ages["Jesse"] = 24;
 
 YAML::Emitter out;
 out << YAML::BeginSeq;
-out << YAML::Flow << squares;
+out << YAML::StandardFlow << squares;
 out << ages;
 out << YAML::EndSeq;
 ```
@@ -186,7 +186,7 @@ Of course, you can overload `operator <<` for your own types:
 ```cpp
 struct Vec3 { int x; int y; int z; };
 YAML::Emitter& operator << (YAML::Emitter& out, const Vec3& v) {
-	out << YAML::Flow;
+	out << YAML::StandardFlow;
 	out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
 	return out;
 }
@@ -214,7 +214,7 @@ If you want to permanently change a setting, there are global setters correspond
 ```cpp
 YAML::Emitter out;
 out.SetIndent(4);
-out.SetMapStyle(YAML::Flow);
+out.SetMapStyle(YAML::StandardFlow);
 ```
 
 # When Something Goes Wrong #

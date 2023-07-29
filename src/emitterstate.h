@@ -25,7 +25,7 @@ struct GroupType {
   enum value { NoType, Seq, Map };
 };
 struct FlowType {
-  enum value { NoType, Flow, Block };
+  enum value { NoType, StandardFlow, BlockFlow };
 };
 
 class EmitterState {
@@ -169,12 +169,12 @@ class EmitterState {
 
     EmitterNodeType::value NodeType() const {
       if (type == GroupType::Seq) {
-        if (flowType == FlowType::Flow)
+        if (flowType == FlowType::StandardFlow)
           return EmitterNodeType::FlowSeq;
         else
           return EmitterNodeType::BlockSeq;
       } else {
-        if (flowType == FlowType::Flow)
+        if (flowType == FlowType::StandardFlow)
           return EmitterNodeType::FlowMap;
         else
           return EmitterNodeType::BlockMap;

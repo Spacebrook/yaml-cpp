@@ -160,7 +160,7 @@ bool IsValidPlainScalar(const std::string& str, FlowType::value flowType,
   }
 
   // check the start
-  const RegEx& start = (flowType == FlowType::Flow ? Exp::PlainScalarInFlow()
+  const RegEx& start = (flowType == FlowType::StandardFlow ? Exp::PlainScalarInFlow()
                                                    : Exp::PlainScalar());
   if (!start.Matches(str)) {
     return false;
@@ -182,7 +182,7 @@ bool IsValidPlainScalar(const std::string& str, FlowType::value flowType,
       Exp::NotPrintable() | Exp::Utf8_ByteOrderMark() | Exp::Break() |
       Exp::Tab() | Exp::Ampersand();
   const RegEx& disallowed =
-      flowType == FlowType::Flow ? disallowed_flow : disallowed_block;
+      flowType == FlowType::StandardFlow ? disallowed_flow : disallowed_block;
 
   StringCharSource buffer(str.c_str(), str.size());
   while (buffer) {
@@ -208,7 +208,7 @@ bool IsValidSingleQuotedScalar(const std::string& str, bool escapeNonAscii) {
 
 bool IsValidLiteralScalar(const std::string& str, FlowType::value flowType,
                           bool escapeNonAscii) {
-  if (flowType == FlowType::Flow) {
+  if (flowType == FlowType::StandardFlow) {
     return false;
   }
 
@@ -274,26 +274,26 @@ StringFormat::value ComputeStringFormat(const std::string& str,
   switch (strFormat) {
     case Auto:
       if (IsValidPlainScalar(str, flowType, escapeNonAscii)) {
-        return StringFormat::Plain;
+        return StringFormat::PlainFormat;
       }
-      return StringFormat::DoubleQuoted;
+      return StringFormat::DoubleQuotedFormat;
     case SingleQuoted:
       if (IsValidSingleQuotedScalar(str, escapeNonAscii)) {
-        return StringFormat::SingleQuoted;
+        return StringFormat::SingleQuotedFormat;
       }
-      return StringFormat::DoubleQuoted;
+      return StringFormat::DoubleQuotedFormat;
     case DoubleQuoted:
-      return StringFormat::DoubleQuoted;
+      return StringFormat::DoubleQuotedFormat;
     case Literal:
       if (IsValidLiteralScalar(str, flowType, escapeNonAscii)) {
-        return StringFormat::Literal;
+        return StringFormat::LiteralFormat;
       }
-      return StringFormat::DoubleQuoted;
+      return StringFormat::DoubleQuotedFormat;
     default:
       break;
   }
 
-  return StringFormat::DoubleQuoted;
+  return StringFormat::DoubleQuotedFormat;
 }
 
 bool WriteSingleQuotedString(ostream_wrapper& out, const std::string& str) {
