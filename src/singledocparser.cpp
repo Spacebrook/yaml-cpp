@@ -109,22 +109,22 @@ void SingleDocParser::HandleNode(EventHandler& eventHandler) {
       m_scanner.pop();
       return;
     case Token::FLOW_SEQ_START:
-      eventHandler.OnSequenceStart(mark, tag, anchor, EmitterStyle::Flow);
+      eventHandler.OnSequenceStart(mark, tag, anchor, EmitterStyle::FlowStyle);
       HandleSequence(eventHandler);
       eventHandler.OnSequenceEnd();
       return;
     case Token::BLOCK_SEQ_START:
-      eventHandler.OnSequenceStart(mark, tag, anchor, EmitterStyle::Block);
+      eventHandler.OnSequenceStart(mark, tag, anchor, EmitterStyle::BlockStyle);
       HandleSequence(eventHandler);
       eventHandler.OnSequenceEnd();
       return;
     case Token::FLOW_MAP_START:
-      eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::Flow);
+      eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::FlowStyle);
       HandleMap(eventHandler);
       eventHandler.OnMapEnd();
       return;
     case Token::BLOCK_MAP_START:
-      eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::Block);
+      eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::BlockStyle);
       HandleMap(eventHandler);
       eventHandler.OnMapEnd();
       return;
@@ -132,7 +132,7 @@ void SingleDocParser::HandleNode(EventHandler& eventHandler) {
       // compact maps can only go in a flow sequence
       if (m_pCollectionStack->GetCurCollectionType() ==
           CollectionType::FlowSeq) {
-        eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::Flow);
+        eventHandler.OnMapStart(mark, tag, anchor, EmitterStyle::FlowStyle);
         HandleMap(eventHandler);
         eventHandler.OnMapEnd();
         return;

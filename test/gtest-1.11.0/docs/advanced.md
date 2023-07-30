@@ -1801,8 +1801,8 @@ For example:
     match-everything `*` value.
 *   `./foo_test --gtest_filter=FooTest.*` Runs everything in test suite
     `FooTest` .
-*   `./foo_test --gtest_filter=*Null*:*Constructor*` Runs any test whose full
-    name contains either `"Null"` or `"Constructor"` .
+*   `./foo_test --gtest_filter=*NullType*:*Constructor*` Runs any test whose full
+    name contains either `"NullType"` or `"Constructor"` .
 *   `./foo_test --gtest_filter=-*DeathTest.*` Runs all non-death tests.
 *   `./foo_test --gtest_filter=FooTest.*-FooTest.Bar` Runs everything in test
     suite `FooTest` except `FooTest.Bar`.

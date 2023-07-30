@@ -82,7 +82,7 @@ inline Mark Node::Mark() const {
 inline NodeType::value Node::Type() const {
   if (!m_isValid)
     throw InvalidNode(m_invalidKey);
-  return m_pNode ? m_pNode->type() : NodeType::Null;
+  return m_pNode ? m_pNode->type() : NodeType::NullType;
 }
 
 // access
@@ -110,7 +110,7 @@ struct as_if<std::string, S> {
   const Node& node;
 
   std::string operator()(const S& fallback) const {
-    if (node.Type() == NodeType::Null)
+    if (node.Type() == NodeType::NullType)
       return "null";
     if (node.Type() != NodeType::Scalar)
       return fallback;
@@ -140,7 +140,7 @@ struct as_if<std::string, void> {
   const Node& node;
 
   std::string operator()() const {
-    if (node.Type() == NodeType::Null)
+    if (node.Type() == NodeType::NullType)
       return "null";
     if (node.Type() != NodeType::Scalar)
       throw TypedBadConversion<std::string>(node.Mark());

@@ -68,7 +68,7 @@ void NodeEvents::Emit(const detail::node& node, EventHandler& handler,
   switch (node.type()) {
     case NodeType::Undefined:
       break;
-    case NodeType::Null:
+    case NodeType::NullType:
       handler.OnNull(Mark(), anchor);
       break;
     case NodeType::Scalar:

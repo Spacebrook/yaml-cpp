@@ -52,7 +52,7 @@ class YAML_CPP_API Node {
   YAML::Mark Mark() const;
   NodeType::value Type() const;
   bool IsDefined() const;
-  bool IsNull() const { return Type() == NodeType::Null; }
+  bool IsNull() const { return Type() == NodeType::NullType; }
   bool IsScalar() const { return Type() == NodeType::Scalar; }
   bool IsSequence() const { return Type() == NodeType::Sequence; }
   bool IsMap() const { return Type() == NodeType::Map; }

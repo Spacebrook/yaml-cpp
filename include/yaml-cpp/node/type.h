@@ -9,7 +9,7 @@
 
 namespace YAML {
 struct NodeType {
-  enum value { Undefined, Null, Scalar, Sequence, Map };
+  enum value { Undefined, NullType, Scalar, Sequence, Map };
 };
 }
 
