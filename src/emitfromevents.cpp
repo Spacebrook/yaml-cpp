@@ -50,10 +50,10 @@ void EmitFromEvents::OnSequenceStart(const Mark&, const std::string& tag,
   BeginNode();
   EmitProps(tag, anchor);
   switch (style) {
-    case EmitterStyle::Block:
+    case EmitterStyle::BlockStyle:
       m_emitter << Block;
       break;
-    case EmitterStyle::Flow:
+    case EmitterStyle::FlowStyle:
       m_emitter << Flow;
       break;
     default:
@@ -76,10 +76,10 @@ void EmitFromEvents::OnMapStart(const Mark&, const std::string& tag,
   BeginNode();
   EmitProps(tag, anchor);
   switch (style) {
-    case EmitterStyle::Block:
+    case EmitterStyle::BlockStyle:
       m_emitter << Block;
       break;
-    case EmitterStyle::Flow:
+    case EmitterStyle::FlowStyle:
       m_emitter << Flow;
       break;
     default:

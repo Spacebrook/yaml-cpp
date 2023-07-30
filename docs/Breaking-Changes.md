@@ -40,7 +40,7 @@ _none_
 ## 0.2.6 ##
 
   * `Node::GetType()` is now `Node::Type()`, and returns an enum `NodeType::value`, where:
-> > ` struct NodeType { enum value { Null, Scalar, Sequence, Map }; }; `
+> > ` struct NodeType { enum value { NullType, Scalar, Sequence, Map }; }; `
   * `Node::GetTag()` is now `Node::Tag()`
   * `Node::Identity()` is removed, and `Node::IsAlias()` and `Node::IsReferenced()` have been merged into `Node::IsAliased()`. The reason: there's no reason to distinguish an alias node from its anchor - whichever happens to be emitted first will be the anchor, and the rest will be aliases.
   * `Node::Read<T>` is now `Node::to<T>`. This wasn't a documented function, so it shouldn't break anything.

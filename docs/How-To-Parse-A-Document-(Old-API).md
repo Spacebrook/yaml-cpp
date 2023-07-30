@@ -242,7 +242,7 @@ If you make a programming error (say, trying to read a scalar from a sequence no
 ```
     YAML::Node node;
     YAML::NodeType::value type = node.Type();  // should be:
-                                               // YAML::NodeType::Null
+                                               // YAML::NodeType::NullType
                                                // YAML::NodeType::Scalar
                                                // YAML::NodeType::Sequence
                                                // YAML::NodeType::Map

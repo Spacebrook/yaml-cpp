@@ -23,7 +23,7 @@ const std::string& node_data::empty_scalar() {
 node_data::node_data()
     : m_isDefined(false),
       m_mark(Mark::null_mark()),
-      m_type(NodeType::Null),
+      m_type(NodeType::NullType),
       m_tag{},
       m_style(EmitterStyle::Default),
       m_scalar{},
@@ -34,7 +34,7 @@ node_data::node_data()
 
 void node_data::mark_defined() {
   if (m_type == NodeType::Undefined)
-    m_type = NodeType::Null;
+    m_type = NodeType::NullType;
   m_isDefined = true;
 }
 
@@ -54,7 +54,7 @@ void node_data::set_type(NodeType::value type) {
   m_type = type;
 
   switch (m_type) {
-    case NodeType::Null:
+    case NodeType::NullType:
       break;
     case NodeType::Scalar:
       m_scalar.clear();
@@ -77,7 +77,7 @@ void node_data::set_style(EmitterStyle::value style) { m_style = style; }
 
 void node_data::set_null() {
   m_isDefined = true;
-  m_type = NodeType::Null;
+  m_type = NodeType::NullType;
 }
 
 void node_data::set_scalar(const std::string& scalar) {
@@ -178,7 +178,7 @@ node_iterator node_data::end() {
 // sequence
 void node_data::push_back(node& node,
                           const shared_memory_holder& /* pMemory */) {
-  if (m_type == NodeType::Undefined || m_type == NodeType::Null) {
+  if (m_type == NodeType::Undefined || m_type == NodeType::NullType) {
     m_type = NodeType::Sequence;
     reset_sequence();
   }
@@ -195,7 +195,7 @@ void node_data::insert(node& key, node& value,
     case NodeType::Map:
       break;
     case NodeType::Undefined:
-    case NodeType::Null:
+    case NodeType::NullType:
     case NodeType::Sequence:
       convert_to_map(pMemory);
       break;
@@ -226,7 +226,7 @@ node& node_data::get(node& key, const shared_memory_holder& pMemory) {
     case NodeType::Map:
       break;
     case NodeType::Undefined:
-    case NodeType::Null:
+    case NodeType::NullType:
     case NodeType::Sequence:
       convert_to_map(pMemory);
       break;
@@ -289,7 +289,7 @@ void node_data::insert_map_pair(node& key, node& value) {
 void node_data::convert_to_map(const shared_memory_holder& pMemory) {
   switch (m_type) {
     case NodeType::Undefined:
-    case NodeType::Null:
+    case NodeType::NullType:
       reset_map();
       m_type = NodeType::Map;
       break;

@@ -121,7 +121,7 @@ inline node* node_data::get(const Key& key,
     case NodeType::Map:
       break;
     case NodeType::Undefined:
-    case NodeType::Null:
+    case NodeType::NullType:
       return nullptr;
     case NodeType::Sequence:
       if (node* pNode = get_idx<Key>::get(m_sequence, key, pMemory))
@@ -144,7 +144,7 @@ inline node& node_data::get(const Key& key, shared_memory_holder pMemory) {
     case NodeType::Map:
       break;
     case NodeType::Undefined:
-    case NodeType::Null:
+    case NodeType::NullType:
     case NodeType::Sequence:
       if (node* pNode = get_idx<Key>::get(m_sequence, key, pMemory)) {
         m_type = NodeType::Sequence;
@@ -208,7 +208,7 @@ inline void node_data::force_insert(const Key& key, const Value& value,
     case NodeType::Map:
       break;
     case NodeType::Undefined:
-    case NodeType::Null:
+    case NodeType::NullType:
     case NodeType::Sequence:
       convert_to_map(pMemory);
       break;
