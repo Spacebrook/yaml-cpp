@@ -1,7 +1,7 @@
 sources:
   "0.7.0":
-    url: "https://github.com/Stovoy/yaml-cpp/archive/refs/tags/0.7.0.tar.gz"
-    sha256: "214676da6bb4bd7f40bcc79c675ea09c6859c71aad0c4892cdd7e26763bf9b76"
+    url: "https://github.com/Spacebrook/yaml-cpp/archive/refs/tags/0.7.0.tar.gz"
+    sha256: "9817156a174c552d5f63003e7144cd3224fe096f43de785a16fa83f1c9aabb4c"
 patches:
   "0.7.0":
     - patch_file: "patches/0001-install-0.7.0.patch"
